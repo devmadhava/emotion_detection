@@ -10,7 +10,7 @@ It consists of two main parts:
      data preprocessing, model training, evaluation, and ONNX export.  
 
 2. **Web Application**  
-   - A simple web-based interface (`/web-app` folder) built with **ONNX Web Runtime**.  
+   - A simple web-based interface (`app.js, index.html, style.css`) built with **ONNX Web Runtime**.  
    - Users can upload a **headshot photo** and receive predicted **emotions** in real time.  
 
 Together, these components form an end-to-end solution:  
@@ -77,7 +77,7 @@ The Colab notebook walks through the **end-to-end process** of building and expo
 
 ---
 
-## Web-App Overview (`web-app/`)
+## Web-App Overview (`app.js, index.html, style.css`)
 
 The Web-App allows users to **upload a headshot image** and detect the emotion in real-time using the **ONNX model** exported from the notebook.  
 
