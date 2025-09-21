@@ -10,12 +10,14 @@
 <body>
     <div class="container">
         <div id="loader">
-            <h2 class="allerta-stencil-regular" id="loader">Loading model, please wait...</h2>
+            <h2 class="allerta-stencil-regular" id="loader">Netlify is a bit slow, please wait...</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
         </div>
 
         <div id="app" style="display:none;"">
-            <h1 class="allerta-stencil-regular title" id="title">Emotion Detector</h1>
-            <!-- <input type="file" id="fileInput" accept="image/*" /> -->
+            <h1 class=" allerta-stencil-regular title" id="title">Emotion Detector</h1>
             <div class="input-container">
                 <label for="fileInput" class="btn">Upload Image</label>
                 <input type="file" id="fileInput" accept="image/*" />

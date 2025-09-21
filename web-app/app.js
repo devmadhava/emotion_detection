@@ -8,22 +8,49 @@ document.getElementById("loader").style.display = "flex";
 document.getElementById("app").style.display = "none";
 
 // Load ONNX model on page load
-// async function loadModel() {
-//     session = await ort.InferenceSession.create("model/emotion_model.onnx");
-//     console.log("ONNX model loaded");
-
-//     // Hide loader, show app
-//     document.getElementById("loader").style.display = "none";
-//     document.getElementById("app").style.display = "flex";
-// }
-
 async function loadModel() {
-    document.getElementById("loader").style.display = "flex";
-    document.getElementById("app").style.display = "none";
+    // document.getElementById("loader").style.display = "flex";
+    // document.getElementById("app").style.display = "none";
+    const loader = document.getElementById("loader");
+    const app = document.getElementById("app");
+    const progressFill = document.getElementById("progressFill");
+
+    loader.style.display = "flex";
+    app.style.display = "none";
 
     const response = await fetch("model/emotion_model.onnx.gz");
-    const compressedData = await response.arrayBuffer();
+    if (!response.ok) throw new Error("Failed to fetch model");
 
+    // Progress Bar Download Logic
+    const contentLength = response.headers.get("content-length");
+    const total = contentLength ? parseInt(contentLength, 10) : 0;
+    const reader = response.body.getReader();
+    let received = 0;
+    let chunks = [];
+
+    // Changing width
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        received += value.length;
+
+        if (total) {
+            const percent = Math.round((received / total) * 100);
+            progressFill.style.width = percent + "%";
+        }
+    }
+
+    // Merge chunks
+    // Load Modal
+    let compressedData = new Uint8Array(received);
+    let position = 0;
+    for (let chunk of chunks) {
+        compressedData.set(chunk, position);
+        position += chunk.length;
+    }
+
+    // const compressedData = await response.arrayBuffer();
     // Decompress
     const decompressedData = pako.ungzip(new Uint8Array(compressedData));
 
@@ -31,10 +58,9 @@ async function loadModel() {
     session = await ort.InferenceSession.create(decompressedData);
     console.log("ONNX model loaded");
 
-    document.getElementById("loader").style.display = "none";
-    document.getElementById("app").style.display = "flex";
+    loader.style.display = "none";
+    app.style.display = "flex";
 }
-
 
 loadModel();
 
@@ -70,17 +96,12 @@ document.getElementById("runBtn").addEventListener("click", async () => {
     const probs = expVals.map((v) => v / sumExp);
 
     const maxIndex = predictions.indexOf(Math.max(...predictions));
-    // const resultText = `\nProbabilities: ${probs.map((v) => (v * 100).toFixed(2) + "%").join(", ")}`;
     const resultText = `\nProbabilities:\n` + 
     labels.map((label, i) => `${label}: ${(probs[i] * 100).toFixed(2)}%`).join("\n");
 
     document.getElementById("result").style.color = colors[maxIndex];
     document.getElementById("result").textContent = `${labels[maxIndex]}`;
     document.getElementById("output").textContent = resultText;
-
-    // const resultText = `Predicted: ${
-    //     labels[maxIndex]
-    // }\nRaw probabilities: ${predictions.map((v) => v.toFixed(3))}`;
 });
 
 async function imageToTensor(img, width, height) {
@@ -108,21 +129,6 @@ async function imageToTensor(img, width, height) {
     console.log("Tranformed")
     return new ort.Tensor("float32", floatArray, [1, 3, height, width]);
 }
-
-// Run model
-// async function runModel(imageTensor) {
-
-//     document.getElementById("runBtn").textContent = "Loading..."
-
-//     const session = await ort.InferenceSession.create(
-//         "model/emotion_model.onnx"
-//     );
-//     const feeds = { input: imageTensor };
-//     const results = await session.run(feeds);
-
-//     document.getElementById("runBtn").textContent = "Run Model"
-//     return Array.from(results["output"].data);
-// }
 
 
 async function runModel(imageTensor) {
