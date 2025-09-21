@@ -42,6 +42,18 @@ body {
     flex-direction: column;
     padding-top: 5rem;
     align-items: center;
+}
+
+#loader {
+    height: 100%;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 1rem;
 }
 

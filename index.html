@@ -9,30 +9,31 @@
 
 <body>
     <div class="container">
-        <h1 class="allerta-stencil-regular title" id="title">Emotion Detector</h1>
-        <!-- <input type="file" id="fileInput" accept="image/*" /> -->
-
-        <div class="input-container">
-            <label for="fileInput" class="btn" >Upload Image</label>
-            <input type="file" id="fileInput" accept="image/*" />
-            <div class="file-name" id="fileName">No file selected</div>
+        <div id="loader">
+            <h2 class="allerta-stencil-regular" id="loader">Loading model, please wait...</h2>
         </div>
 
-        <br />
-
-        <div class="image-container">
-            <img id="preview" alt="Preview" />
+        <div id="app" style="display:none;"">
+            <h1 class="allerta-stencil-regular title" id="title">Emotion Detector</h1>
+            <!-- <input type="file" id="fileInput" accept="image/*" /> -->
+            <div class="input-container">
+                <label for="fileInput" class="btn">Upload Image</label>
+                <input type="file" id="fileInput" accept="image/*" />
+                <div class="file-name" id="fileName">No file selected</div>
+            </div>
+            <br />
+            <div class="image-container">
+                <img id="preview" alt="Preview" />
+            </div>
+            <br />
+            <button class="btn" id="runBtn">Run Model</button>
+            <div id="result" class="allerta-stencil-regular">Results!</div>
+            <div id="output"></div>
         </div>
-
-        <br />
-        <button class="btn" id="runBtn">Run Model</button>
-        <div id="result" class="allerta-stencil-regular">Results!</div>
-        <div id="output"></div>
     </div>
 
-
     <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
 </body>
 
 </html>

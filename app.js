@@ -1,7 +1,23 @@
 const labels = ["negative", "neutral", "positive"];
 const colors  = ["red", "#0068FF", "green"];
 
+let session = null;
 let selectedImage = null;
+
+document.getElementById("loader").style.display = "flex";
+document.getElementById("app").style.display = "none";
+
+// Load ONNX model on page load
+async function loadModel() {
+    session = await ort.InferenceSession.create("model/emotion_model.onnx");
+    console.log("ONNX model loaded");
+
+    // Hide loader, show app
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("app").style.display = "flex";
+}
+
+loadModel();
 
 // Preview uploaded image
 document.getElementById("fileInput").addEventListener("change", (e) => {
@@ -70,15 +86,21 @@ async function imageToTensor(img, width, height) {
             (imageData[i * 4 + 2] / 255.0 - mean[2]) / std[2]; // B
     }
 
+    console.log("Tranformed")
     return new ort.Tensor("float32", floatArray, [1, 3, height, width]);
 }
 
 // Run model
 async function runModel(imageTensor) {
+
+    document.getElementById("runBtn").textContent = "Loading..."
+
     const session = await ort.InferenceSession.create(
         "model/emotion_model.onnx"
     );
     const feeds = { input: imageTensor };
     const results = await session.run(feeds);
+
+    document.getElementById("runBtn").textContent = "Run Model"
     return Array.from(results["output"].data);
 }
