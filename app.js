@@ -8,14 +8,33 @@ document.getElementById("loader").style.display = "flex";
 document.getElementById("app").style.display = "none";
 
 // Load ONNX model on page load
+// async function loadModel() {
+//     session = await ort.InferenceSession.create("model/emotion_model.onnx");
+//     console.log("ONNX model loaded");
+
+//     // Hide loader, show app
+//     document.getElementById("loader").style.display = "none";
+//     document.getElementById("app").style.display = "flex";
+// }
+
 async function loadModel() {
-    session = await ort.InferenceSession.create("model/emotion_model.onnx");
+    document.getElementById("loader").style.display = "flex";
+    document.getElementById("app").style.display = "none";
+
+    const response = await fetch("model/emotion_model.onnx.gz");
+    const compressedData = await response.arrayBuffer();
+
+    // Decompress
+    const decompressedData = pako.ungzip(new Uint8Array(compressedData));
+
+    // Create ONNX session from bytes
+    session = await ort.InferenceSession.create(decompressedData);
     console.log("ONNX model loaded");
 
-    // Hide loader, show app
     document.getElementById("loader").style.display = "none";
     document.getElementById("app").style.display = "flex";
 }
+
 
 loadModel();
 
@@ -91,16 +110,27 @@ async function imageToTensor(img, width, height) {
 }
 
 // Run model
+// async function runModel(imageTensor) {
+
+//     document.getElementById("runBtn").textContent = "Loading..."
+
+//     const session = await ort.InferenceSession.create(
+//         "model/emotion_model.onnx"
+//     );
+//     const feeds = { input: imageTensor };
+//     const results = await session.run(feeds);
+
+//     document.getElementById("runBtn").textContent = "Run Model"
+//     return Array.from(results["output"].data);
+// }
+
+
 async function runModel(imageTensor) {
+    document.getElementById("runBtn").textContent = "Loading...";
 
-    document.getElementById("runBtn").textContent = "Loading..."
-
-    const session = await ort.InferenceSession.create(
-        "model/emotion_model.onnx"
-    );
     const feeds = { input: imageTensor };
-    const results = await session.run(feeds);
+    const results = await session.run(feeds); // Use already loaded session
 
-    document.getElementById("runBtn").textContent = "Run Model"
+    document.getElementById("runBtn").textContent = "Run Model";
     return Array.from(results["output"].data);
 }
