@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Foldit:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.foldit-title {
+    font-family: "Foldit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.rubik-moonrocks-regular {
+    font-family: "Rubik Moonrocks", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.allerta-stencil-regular {
+  font-family: "Allerta Stencil", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: #44546A;
+    color: #DAE5EF;
+    display: flex;
+    flex-direction: column;
+    padding-top: 5rem;
+    align-items: center;
+    gap: 1rem;
+}
+
+.title {
+    font-size: 4rem;
+}
+
+.btn {
+    padding: 10px 25px;
+    background-color: #0068FF;
+    color: #DAE5EF;
+    border: 0;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: all ease 0.2s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #DAE5EF;
+    color: #0068FF;
+
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+#fileInput {
+    display: none;
+}
+
+#output {
+    text-transform: capitalize;
+}
+
+#result {
+    font-size: 3rem;
+    text-transform: uppercase;
+}
+
+.image-container {
+    height: 14rem;
+    width: 13.5rem;
+    border: 1px #DAE5EF solid;
+    font-size: 1.2rem;
+    object-fit: contain;
+    background-color: #DAE5EF;
+    color: #44546A;
+}
+
+.image-container img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
