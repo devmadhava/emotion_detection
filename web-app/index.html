@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <title>Emotion Detector</title>
+    <!-- Link to external stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="container">
+
+        <!-- Loader shown initially while app or model is loading -->
         <div id="loader">
             <h2 class="allerta-stencil-regular" id="loader">Netlify is a bit slow, please wait...</h2>
             <div class="progress-bar">
@@ -16,26 +19,43 @@
             </div>
         </div>
 
-        <div id="app" style="display:none;"">
-            <h1 class=" allerta-stencil-regular title" id="title">Emotion Detector</h1>
+        <!-- Main App container, hidden initially -->
+        <div id="app" style="display:none;">
+            <!-- App Title -->
+            <h1 class="allerta-stencil-regular title" id="title">Emotion Detector</h1>
+
+            <!-- File input section -->
             <div class="input-container">
+                <!-- Styled label acts as button for file input -->
                 <label for="fileInput" class="btn">Upload Image</label>
                 <input type="file" id="fileInput" accept="image/*" />
+                <!-- Display uploaded file name -->
                 <div class="file-name" id="fileName">No file selected</div>
             </div>
             <br />
+
+            <!-- Preview container for uploaded image -->
             <div class="image-container">
                 <img id="preview" alt="Preview" />
             </div>
             <br />
+
+            <!-- Button to run ONNX model -->
             <button class="btn" id="runBtn">Run Model</button>
+
+            <!-- Result display -->
             <div id="result" class="allerta-stencil-regular">Results!</div>
             <div id="output"></div>
         </div>
     </div>
 
+    <!-- ONNX Runtime Web: runs ONNX models directly in browser -->
     <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+
+    <!-- Pako.js: decompresses .gz compressed ONNX model -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+
+    <!-- Custom app JS -->
     <script src="app.js" defer></script>
 </body>
 

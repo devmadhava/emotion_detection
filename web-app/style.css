@@ -1,35 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap');
+/* Import Allerta Stencil font from Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap");
 
+/* Universal selector to include box-sizing and remove default margin/padding */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* Apply Allerta Stencil font to elements using this class */
 .allerta-stencil-regular {
-  font-family: "Allerta Stencil", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+    font-family: "Allerta Stencil", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
+/* Body styling: full viewport, default font fallback */
 body {
     width: 100%;
     height: 100vh;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Main container covering full page and centering content */
 .container {
     width: 100%;
     height: 100%;
-    background-color: #44546A;
-    color: #DAE5EF;
+    background-color: #44546a; /* Dark background */
+    color: #dae5ef; /* Light text */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-/* Loader and Bar */
+/* Loader styling: center loader elements vertically */
 #loader {
     display: flex;
     flex-direction: column;
@@ -38,23 +43,25 @@ body {
     align-items: center;
 }
 
+/* Progress bar container */
 .progress-bar {
-  width: 300px;
-  height: 20px;
-  border-radius: 10px;
-  border: 2px solid #DAE5EF;
-  overflow: hidden;
-  margin-top: 15px;
+    width: 300px;
+    height: 20px;
+    border-radius: 10px;
+    border: 2px solid #dae5ef;
+    overflow: hidden;
+    margin-top: 15px;
 }
 
+/* Progress fill element that expands width as model downloads */
 .progress-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #DAE5EF, #0068FF);
-  transition: width 0.2s ease;
+    height: 100%;
+    width: 0%; /* Initially empty */
+    background: linear-gradient(90deg, #dae5ef, #0068ff);
+    transition: width 0.2s ease; /* Smooth fill transition */
 }
 
-/* Actual App */
+/* Main app container, initially hidden, displayed after model loads */
 #app {
     width: 100%;
     height: 100%;
@@ -65,14 +72,16 @@ body {
     gap: 1rem;
 }
 
+/* Title styling */
 .title {
     font-size: 4rem;
 }
 
+/* Button styling for upload & run actions */
 .btn {
     padding: 10px 25px;
-    background-color: #0068FF;
-    color: #DAE5EF;
+    background-color: #0068ff;
+    color: #dae5ef;
     border: 0;
     font-size: 0.9rem;
     font-weight: 400;
@@ -80,12 +89,13 @@ body {
     cursor: pointer;
 }
 
+/* Button hover effects */
 .btn:hover {
-    background-color: #DAE5EF;
-    color: #0068FF;
-
+    background-color: #dae5ef;
+    color: #0068ff;
 }
 
+/* Input container holding file input and label */
 .input-container {
     display: flex;
     align-items: center;
@@ -93,29 +103,34 @@ body {
     gap: 1rem;
 }
 
+/* Hide native file input */
 #fileInput {
     display: none;
 }
 
+/* Output text styling: capitalize first letter of each word */
 #output {
     text-transform: capitalize;
 }
 
+/* Result display styling */
 #result {
     font-size: 3rem;
-    text-transform: uppercase;
+    text-transform: uppercase; /* Emphasize predicted class */
 }
 
+/* Container for uploaded image preview */
 .image-container {
     height: 14rem;
     width: 13.5rem;
-    border: 1px #DAE5EF solid;
+    border: 1px #dae5ef solid;
     font-size: 1.2rem;
     object-fit: contain;
-    background-color: #DAE5EF;
-    color: #44546A;
+    background-color: #dae5ef; /* light background to show image */
+    color: #44546a; /* text color fallback */
 }
 
+/* Ensure image fits inside container without distortion */
 .image-container img {
     object-fit: contain;
     width: 100%;
