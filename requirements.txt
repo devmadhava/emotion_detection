@@ -1,0 +1,8 @@
+torch>=2.0.0
+torchvision>=0.15.0
+opencv-python>=4.7.0.72
+matplotlib>=3.7.0
+scikit-learn>=1.2.0
+kaggle>=1.5.13
+onnx>=1.14.0
+onnxruntime>=1.14.0
